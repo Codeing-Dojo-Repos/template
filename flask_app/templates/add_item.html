@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <title>Success</title>
+</head>
+<body>
+    <div class="container">
+
+        <div class="row">
+            <div class="col-10">
+                <h3>Report a item, {{this_user.fname}}!</h3>
+            </div>
+            <div class="col">
+                <p class="text-end"><a href="/dashboard">All items</a></p>
+            </div>
+            <div class="col">
+                <p class="text-end"><a href="/logout">Logout</a></p>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="d-flex ">
+                    {% with messages = get_flashed_messages(category_filter=['relic']) %}
+                        {% if messages %}
+                            {% for message in messages %}
+                                <p>{{message}}</p>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                    <form class="col-4" action="/relics/add_relic" method="POST">
+                        <div class="mb-3">
+                            <label name="name" class="form-label">Name:</label>
+                            <input type="text" name="name" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label name="discovery_date" class="form-label">Discovery Date:</label>
+                            <input type="date" name="discovery_date" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label name="description" class="form-label">Description:</label>
+                            <textarea name="description" class="form-control"></textarea>
+                        </div>
+                        <button class="btn btn-primary">Add Relic</button>
+                    </form>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    
+</body>
+</html>
