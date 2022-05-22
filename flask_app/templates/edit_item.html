@@ -12,10 +12,10 @@
 
         <div class="row">
             <div class="col-10">
-                <h3>Edit {{relic.name}}!</h3>
+                <h3>Edit {{item.name}}!</h3>
             </div>
             <div class="col">
-                <p class="text-end"><a href="/dashboard">All relics</a></p>
+                <p class="text-end"><a href="/dashboard">All Items</a></p>
             </div>
             <div class="col">
                 <p class="text-end"><a href="/logout">Logout</a></p>
@@ -24,8 +24,8 @@
 
         <div class="row">
             <div class="d-flex">
-                <form class="col-4" action="/relics/{{relic.id}}/edit_relic" method="POST">
-                    {% with messages = get_flashed_messages(category_filter=['relic']) %}
+                <form class="col-4" action="/items/{{item.id}}/edit_item" method="POST">
+                    {% with messages = get_flashed_messages(category_filter=['item']) %}
                         {% if messages %}
                             {% for message in messages %}
                                 <p>{{message}}</p>
@@ -34,17 +34,21 @@
                     {% endwith %}
                     <div class="mb-3">
                         <label name="name" class="form-label">Name:</label>
-                        <input class="form-control" type="text" name="name" value="{{relic.name}}">
+                        <input class="form-control" type="text" name="name" value="{{item.name}}">
                     </div>
                     <div class="mb-3">
-                        <label name="discovery_date" class="form-label">Discovery Date:</label>
-                        <input class="form-control" type="date" name="discovery_date" value={{relic.discovery_date}}>
+                        <label name="size" class="form-label">Size:</label>
+                        <input class="form-control" type="text" name="size" value="{{item.size}}">
+                    </div>
+                    <div class="mb-3">
+                        <label name="date" class="form-label">Date:</label>
+                        <input class="form-control" type="date" name="date" value="{{item.date}}">
                     </div>
                     <div class="mb-3">
                         <label name="description" class="form-label">Description:</label>
-                        <textarea class="form-control" name="description">{{relic.description}}</textarea>
+                        <textarea class="form-control" name="description">{{item.description}}</textarea>
                     </div>
-                    <button class="btn btn-primary">Edit Relic</button>
+                    <button class="btn btn-primary">Edit Item</button>
                 </form>
             </div>
         </div>

@@ -1,7 +1,7 @@
 from flask_app import app
 from flask import render_template, redirect, request, session, flash
 from flask_app import app
-from flask_app.models.item_model import Relic
+from flask_app.models.item_model import Item
 from flask_app.models.user_model import User
 from flask_bcrypt import Bcrypt
 bcrypt = Bcrypt(app)
@@ -40,8 +40,8 @@ def dashboard():
         'id': session['user_id']
     }
     result = User.get_user_by_id(data)
-    all_relics = Relic.get_all_realics()
-    return render_template('dashboard.html', user=result, all_relics=all_relics)
+    all_items = Item.get_all_items_and_users()
+    return render_template('dashboard.html', user=result, all_items=all_items)
 
 @app.route('/handleLogin', methods=['POST'])
 def handleLogin():
@@ -86,4 +86,4 @@ def get_user_items():
 
     print(f"items: {result[0]}")
     name = session["fname"]
-    return render_template("my_items.html", relics=result, name=name)
+    return render_template("my_items.html", items=result, name=name)

@@ -12,10 +12,10 @@
 
         <div class="row">
             <div class="col-10">
-                <h2>Hello, [name]</h2>
+                <h2>Hello, {{user.fname}}</h2>
             </div>
             <div class="col">
-                <p class="text-end"><a href="/link1">Link 1</a></p>
+                <p class="text-end"><a href="/my_items">My Items</a></p>
             </div>
             <div class="col">
                 <p class="text-end"><a href="/logout">Logout</a></p>
@@ -28,37 +28,32 @@
                 <tr>
                     <th>ID</th>
                     <th>Name</th>
-                    <th>col 1 </th>
-                    <th>col 2</th>
+                    <th>Size</th>
+                    <th>Date</th>
+                    <th>Description</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
+                {% for item in all_items %}
                 <tr>
-                    <td>1</td>
-                    <td>acme</td>
-                    <td>[date]</td>
-                    <td>[name]</td>
+                    <td>{{item.id}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.size}}</td>
+                    <td>{{item.date.strftime('%B %d %Y')}}</td>
+                    <td>{{item.description}}</td>
                     <td>
-                        <a href="relics/{{relic.id}}">View</a>
-                        <a href="relics/{{relic.id}}/edit">Edit</a>
-                        <a href="relics/{{relic.id}}/delete">Delete</a>
+                        <a href="items/{{item.id}}">View</a>
+                        {% if session["user_id"] == item.user.id %}
+                            <a href="items/{{item.id}}/edit">Edit</a>
+                            <a href="items/{{item.id}}/delete">Delete</a>
+                        {% endif %}
                     </td>           
                 </tr>
-                <tr>
-                    <td>2</td>
-                    <td>asdfd</td>
-                    <td>[date]</td>
-                    <td>[name]</td>
-                    <td>
-                        <a href="relics/{{relic.id}}">View</a>
-                        <a href="relics/{{relic.id}}/edit">Edit</a>
-                        <a href="relics/{{relic.id}}/delete">Delete</a>
-                    </td>           
-                </tr>
+                {% endfor %}
             </tbody>
         </table>
-        <a href="/add item">Add an item</a>
+        <a href="/items/new">Add an item</a>
     
     </div>
 </body>

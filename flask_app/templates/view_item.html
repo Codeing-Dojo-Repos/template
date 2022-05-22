@@ -14,21 +14,19 @@
 
         <div class="row">
             <div class="col-10">
-                <h3>About relic {{relic.id}} : {{ relic.name}}</h3>
+                <h3>About relic {{item.id}} : {{ item.name}}</h3>
             </div>
             <div class="col">
-                <!-- <a href="/dashboard" class="btn btn-danger">All relics</a> -->
-                <p class="text-end"><a href="/dashboard">My relics</a></p>
+                <p class="text-end"><a href="/dashboard">My Items</a></p>
             </div>
             <div class="col">
-                <!-- <a href="/logout" class="btn btn-danger">Logout</a> -->
                 <p class="text-end"><a href="/logout">Logout</a></p>
             </div>
         </div>
 
-        <p>Discovered by: {{relic.user.fname}} {{relic.user.lname}}</p>
-        <p>Date of discovery: {{relic.discovery_date}}</p>
-        <p>Description: {{relic.description}}</p>
+        <p>Discovered by: {{item.user.fname}} {{item.user.lname}}</p>
+        <p>Date of discovery: {{item.date.strftime('%B %d, %Y')}}</p>
+        <p>Description: {{item.description}}</p>
 
     </div>
 </body>

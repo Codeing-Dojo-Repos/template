@@ -63,6 +63,7 @@
                 <button type="submit" class="btn btn-primary">Register</button>
             </form>
             <form class="col-4" action="/handleLogin" method="POST">
+                <h2>Login</h2>
                 {% with messages = get_flashed_messages(category_filter=['log']) %}
                     {% if messages %}
                         {% for message in messages %}
@@ -70,7 +71,6 @@
                         {% endfor %}
                     {% endif %}
                 {% endwith %}
-                <h2>Login</h2>
                 <div class="mb-3">
                     <label for="email" class="form-label">Email address</label>
                     <input type="email" class="form-control" name="email">

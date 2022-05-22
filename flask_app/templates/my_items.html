@@ -26,25 +26,16 @@
         <div class="row">
             <div class="col-6">
             <!-- <div class="d-flex"> -->
-
+                    {% for i in items %}
                     <ul class="list-group">
                         <li class="list-group-item">
-                            Item 1 - 5/7/1990: 
-                            <a href="relics/{{r.id}}">View</a>
-                            <a href="relics/{{r.id}}/edit">Edit</a>
-                            <a href="relics/{{r.id}}/delete">Delete</a>
+                            {{i.name}} - {{i.date}}: 
+                            <a href="items/{{i.id}}">View</a>
+                            <a href="items/{{i.id}}/edit">Edit</a>
+                            <a href="items/{{i.id}}/delete">Delete</a>
                         </li>
                     </ul>
-
-                    <ul class="list-group">
-                        <li class="list-group-item">
-                            Item 2 - 1/17/1995: 
-                            <a href="relics/{{r.id}}">View</a>
-                            <a href="relics/{{r.id}}/edit">Edit</a>
-                            <a href="relics/{{r.id}}/delete">Delete</a>
-                        </li>
-                    </ul>
-
+                    {% endfor %}
             <!-- </div> -->
             </div>
         </div>

@@ -2,7 +2,6 @@ from flask_app.config.mysqlconnection import connectToMySQL
 from flask import flash
 from flask_bcrypt import Bcrypt
 from flask_app import app
-from flask_app.models.item_model import Item
 import re
 emailRegex = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
 bcrypt = Bcrypt(app)
@@ -18,7 +17,7 @@ class User:
         self.password = data['password']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
-        self.relics = []
+        self.items = []
 
     @staticmethod
     def validata_email(email):
@@ -77,6 +76,9 @@ class User:
             is_valid = False
         if data['password'] != data['cpassword']:
             flash("password have to match", "reg")
+            is_valid = False
+        if len( User.get_user_by_email({"email" : data["email"]}) )> 0:
+            flash("Email address is already taken", "reg")
             is_valid = False
         return is_valid
 

@@ -6,11 +6,12 @@ from flask_app.models.user_model import User
 
 class Item:
     db = "template_db"
+
     def __init__(self, data):
-        self.id = data["id"]
+        self.id = data['id']
         self.name = data["name"]
         self.size = data["size"]
-        self.discovery_date = data["date"]
+        self.date = data["date"]
         self.description = data["description"]
         self.created_at = data["created_at"]
         self.updated_st = data["updated_at"]
@@ -31,6 +32,7 @@ class Item:
                      join users
                        on items.user_id = users.id;"""
         result = connectToMySQL(cls.db).query_db(query)
+        #print(f"result: {result}")
         all_items = []
         for i in result:
             cur_item = Item(i)
@@ -40,7 +42,7 @@ class Item:
                 "lname": i["lname"],
                 "email": i["email"],
                 "password": i["password"],
-                "create_at": i["users.create_at"],
+                "created_at": i["users.created_at"],
                 "updated_at": i["users.updated_at"]
             })
             cur_item.user = cur_user
@@ -65,16 +67,20 @@ class Item:
                        on items.user_id = users.id
                     where items.id = %(id)s;"""
         result = connectToMySQL(cls.db).query_db(query, data)
+        print(f"result: {result}")
+        if len(result) == 0:
+            return []
 
-        cur_item = Item(result)
+        cur_item = Item(result[0])
+        print(f"cur_item: {Item}")
         cur_user = User({
-            "id": result["users.id"],
-            "fname": result["fname"],
-            "lname": result["lname"],
-            "email": result["email"],
-            "password": result["password"],
-            "create_at": result["users.create_at"],
-            "updated_at": result["users.updated_at"]
+            "id": result[0]["users.id"],
+            "fname": result[0]["fname"],
+            "lname": result[0]["lname"],
+            "email": result[0]["email"],
+            "password": result[0]["password"],
+            "created_at": result[0]["users.created_at"],
+            "updated_at": result[0]["users.updated_at"]
         })
         cur_item.user = cur_user
         return cur_item
@@ -84,9 +90,9 @@ class Item:
         print(f"edit_item {data}")
         query = """update items
                     set name = %(name)s,
-                      set size = %(size)s,
-                      set date = %(date)s
-              description = %(description)s
+                        size = %(size)s,
+                        date = %(date)s,
+                 description = %(description)s
                     where id = %(id)s;"""
         result = connectToMySQL(cls.db).query_db(query, data)
         return result
@@ -110,7 +116,7 @@ class Item:
             flash("size cannot be negative", "item")
             is_valid = False
         if data["date"] == '':
-            flash("name too small < 3", "item")
+            flash("date cannot be empty", "item")
             is_valid = False
         if len(data["description"]) < 10:
             flash("description too small < 10", "item")

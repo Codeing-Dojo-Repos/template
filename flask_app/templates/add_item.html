@@ -12,7 +12,7 @@
 
         <div class="row">
             <div class="col-10">
-                <h3>Report a item, {{this_user.fname}}!</h3>
+                <h3>Report a item, {{user.fname}}!</h3>
             </div>
             <div class="col">
                 <p class="text-end"><a href="/dashboard">All items</a></p>
@@ -25,27 +25,32 @@
         <div class="container">
             <div class="row">
                 <div class="d-flex ">
-                    {% with messages = get_flashed_messages(category_filter=['relic']) %}
-                        {% if messages %}
-                            {% for message in messages %}
-                                <p>{{message}}</p>
-                            {% endfor %}
-                        {% endif %}
-                    {% endwith %}
-                    <form class="col-4" action="/relics/add_relic" method="POST">
+                    
+                    <form class="col-4" action="/items/add_item" method="POST">
+                        {% with messages = get_flashed_messages(category_filter=['item']) %}
+                            {% if messages %}
+                                {% for message in messages %}
+                                    <p>{{message}}</p>
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
                         <div class="mb-3">
                             <label name="name" class="form-label">Name:</label>
                             <input type="text" name="name" class="form-control">
                         </div>
                         <div class="mb-3">
-                            <label name="discovery_date" class="form-label">Discovery Date:</label>
-                            <input type="date" name="discovery_date" class="form-control">
+                            <label name="date" class="form-label">Date:</label>
+                            <input type="date" name="date" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label name="size" class="form-label">Size:</label>
+                            <input type="text" name="size" class="form-control">
                         </div>
                         <div class="mb-3">
                             <label name="description" class="form-label">Description:</label>
                             <textarea name="description" class="form-control"></textarea>
                         </div>
-                        <button class="btn btn-primary">Add Relic</button>
+                        <button class="btn btn-primary">Add Item</button>
                     </form>
                 </div>
                 </div>
